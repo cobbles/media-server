@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: deluge
+  labels:
+    app: deluge
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: deluge
+      tier: backend
+      track: stable
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: deluge
+        tier: backend
+        track: stable
+    spec:
+      containers:   
+      - name: deluge
+        image: linuxserver/deluge:latest
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Australia/Syndey"
+        - name: DELUGE_LOGLEVEL
+          value: "error"              
+      imagePullSecrets:
+      - name: docker-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: deluge
+  labels:
+    app: deluge
+spec:  
+  selector:
+    app: deluge
+    tier: backend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
