@@ -1,35 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sonarr
+  name: radarr
   labels:
-    app: sonarr
+    app: radarr
   namespace: default
 spec:
   selector:
     matchLabels:
-      app: sonarr
+      app: radarr
       tier: backend
       track: stable
   replicas: 1
   template:
     metadata:
       labels:
-        app: sonarr
+        app: radarr
         tier: backend
         track: stable
     spec:
       containers:
-      - name: sonarr
-        image: linuxserver/sonarr:latest
+      - name: radarr
+        image: linuxserver/radarr:latest
         volumeMounts:
-        - name: sonarr-persistent-storage
+        - name: radarr-persistent-storage
           mountPath: /config
-          subPath: sonarr/config
-        - name: sonarr-persistent-storage
-          mountPath: /tv
-          subPath: tv/
-        - name: sonarr-persistent-storage
+          subPath: radarr/config
+        - name: radarr-persistent-storage
+          mountPath: /movies
+          subPath: movies/
+        - name: radarr-persistent-storage
           mountPath: /downloads
           subPath: downloads/
         env:
@@ -40,7 +40,7 @@ spec:
         - name: TZ
           value: "Australia/Syndey"
       volumes:
-      - name: sonarr-persistent-storage
+      - name: radarr-persistent-storage
         persistentVolumeClaim:
           claimName: nfs-volume-claim
 ---
@@ -48,13 +48,13 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: default
-  name: sonarr
+  name: radarr
   labels:
-    app: sonarr
+    app: radarr
 spec:
   selector:
-    app: sonarr
+    app: radarr
     tier: backend
   ports:
   - protocol: TCP
-    port: 8989
+    port: 7878

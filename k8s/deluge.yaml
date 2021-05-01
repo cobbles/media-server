@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
+metadata:
   name: deluge
   labels:
     app: deluge
@@ -22,6 +22,13 @@ spec:
       containers:
       - name: deluge
         image: linuxserver/deluge:latest
+        volumeMounts:
+        - name: deluge-persistent-storage
+          mountPath: /config
+          subPath: deluge/config
+        - name: deluge-persistent-storage
+          mountPath: /downloads
+          subPath: downloads/
         env:
         - name: PUID
           value: "1000"
@@ -30,9 +37,11 @@ spec:
         - name: TZ
           value: "Australia/Syndey"
         - name: DELUGE_LOGLEVEL
-          value: "error"
-      imagePullSecrets:
-      - name: docker-secret
+          value: "debug"
+      volumes:
+      - name: deluge-persistent-storage
+        persistentVolumeClaim:
+          claimName: nfs-volume-claim
 ---
 apiVersion: v1
 kind: Service
@@ -41,11 +50,10 @@ metadata:
   name: deluge
   labels:
     app: deluge
-spec:  
+spec:
   selector:
     app: deluge
     tier: backend
   ports:
   - protocol: TCP
-    port: 8000
-    targetPort: 8000
+    port: 8112

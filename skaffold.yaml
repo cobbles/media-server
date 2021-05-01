@@ -2,11 +2,6 @@ apiVersion: skaffold/v2beta7
 kind: Config
 metadata:
   name: app
-build:  
-  artifacts:
-  - image: slackbot
-    context: slackbot
-
 profiles:
   - name: ci
     build:

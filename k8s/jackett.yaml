@@ -1,35 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sonarr
+  name: jackett
   labels:
-    app: sonarr
+    app: jackett
   namespace: default
 spec:
   selector:
     matchLabels:
-      app: sonarr
+      app: jackett
       tier: backend
       track: stable
   replicas: 1
   template:
     metadata:
       labels:
-        app: sonarr
+        app: jackett
         tier: backend
         track: stable
     spec:
       containers:
-      - name: sonarr
-        image: linuxserver/sonarr:latest
+      - name: jackett
+        image: linuxserver/jackett:latest
         volumeMounts:
-        - name: sonarr-persistent-storage
+        - name: jackett-persistent-storage
           mountPath: /config
-          subPath: sonarr/config
-        - name: sonarr-persistent-storage
-          mountPath: /tv
-          subPath: tv/
-        - name: sonarr-persistent-storage
+          subPath: jackett/config
+        - name: jackett-persistent-storage
           mountPath: /downloads
           subPath: downloads/
         env:
@@ -40,7 +37,7 @@ spec:
         - name: TZ
           value: "Australia/Syndey"
       volumes:
-      - name: sonarr-persistent-storage
+      - name: jackett-persistent-storage
         persistentVolumeClaim:
           claimName: nfs-volume-claim
 ---
@@ -48,13 +45,13 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: default
-  name: sonarr
+  name: jackett
   labels:
-    app: sonarr
+    app: jackett
 spec:
   selector:
-    app: sonarr
+    app: jackett
     tier: backend
   ports:
   - protocol: TCP
-    port: 8989
+    port: 9117
