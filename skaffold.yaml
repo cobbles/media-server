@@ -2,13 +2,6 @@ apiVersion: skaffold/v2beta7
 kind: Config
 metadata:
   name: app
-profiles:
-  - name: ci
-    build:
-      artifacts:
-      - image: docker.pkg.github.com/cobbles/media-server/media-server
-        docker:
-          target: builder
-      tagPolicy:
-        envTemplate:
-          template: "{{.CI_TAG}}"
+deploy:
+  kustomize:
+    paths: ["k8s/dev/"]
