@@ -1,6 +1,5 @@
 resources:
 - deluge.yaml
-- ingress.yaml
 - jackett.yaml
 - plex.yaml
 - radarr.yaml
