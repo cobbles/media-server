@@ -1,4 +1,2 @@
-resources:
-- ./../base/
-- ingress.yaml
-- nfs-volume.yaml
+bases:
+- ../base

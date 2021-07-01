@@ -1,0 +1,6 @@
+- op: replace
+  path: /spec/capacity/storage
+  value: 931Gi
+- op: replace
+  path: /spec/hostPath/path
+  value: /mnt/hdd1

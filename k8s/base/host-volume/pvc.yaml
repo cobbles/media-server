@@ -1,0 +1,12 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: host-volume-claim
+spec:
+  storageClassName: host-persistent-volume
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 20Gi

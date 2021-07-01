@@ -1,6 +1,8 @@
-resources:
-- deluge.yaml
-- jackett.yaml
-- plex.yaml
-- radarr.yaml
-- sonarr.yaml
+bases:
+- deluge
+- host-volume
+- ingress
+- jackett
+- plex
+- radarr
+- sonarr

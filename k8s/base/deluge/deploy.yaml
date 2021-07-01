@@ -1,32 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jackett
+  name: deluge
   labels:
-    app: jackett
+    app: deluge
   namespace: default
 spec:
   selector:
     matchLabels:
-      app: jackett
+      app: deluge
       tier: backend
       track: stable
-  replicas: 1
   template:
     metadata:
       labels:
-        app: jackett
+        app: deluge
         tier: backend
         track: stable
     spec:
       containers:
-      - name: jackett
-        image: linuxserver/jackett:latest
+      - name: deluge
+        image: linuxserver/deluge:latest
         volumeMounts:
-        - name: jackett-persistent-storage
+        - name: deluge-persistent-storage
           mountPath: /config
-          subPath: jackett/config
-        - name: jackett-persistent-storage
+          subPath: deluge/config
+        - name: deluge-persistent-storage
           mountPath: /downloads
           subPath: downloads/
         env:
@@ -36,22 +35,9 @@ spec:
           value: "1000"
         - name: TZ
           value: "Australia/Syndey"
+        - name: DELUGE_LOGLEVEL
+          value: "debug"
       volumes:
-      - name: jackett-persistent-storage
+      - name: deluge-persistent-storage
         persistentVolumeClaim:
-          claimName: nfs-volume-claim
----
-apiVersion: v1
-kind: Service
-metadata:
-  namespace: default
-  name: jackett
-  labels:
-    app: jackett
-spec:
-  selector:
-    app: jackett
-    tier: backend
-  ports:
-  - protocol: TCP
-    port: 9117
+          claimName: host-volume-claim
