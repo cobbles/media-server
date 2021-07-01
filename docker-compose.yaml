@@ -1,0 +1,76 @@
+version: "3.9"
+
+services:
+  plex:
+    image: linuxserver/plex:version-1.23.3.4707-ebb5fe9f3
+    container_name: plex
+    restart: unless-stopped
+    environment:
+      - PUID="1000"
+      - PGID="1000"
+      - TZ="Australia/Syndey"
+    volumes:
+      - /mnt/data/plex/config:/config
+      - /mnt/data/movies:/movies
+      - /mnt/data/tv:/tv
+    ports:
+      - 32400:32400
+
+  deluge:
+    image: linuxserver/deluge:version-2.0.3-2201906121747ubuntu18.04.1
+    container_name: deluge
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      - PUID="1000"
+      - PGID="1000"
+      - TZ="Australia/Syndey"
+    volumes:
+      - /mnt/data/deluge/config:/config
+      - /mnt/data/downloads:/downloads
+    # ports:
+    #   - 8112:8112
+
+  jackett:
+    image: linuxserver/jackett:version-v0.18.386
+    container_name: jackett
+    restart: unless-stopped
+    environment:
+      - PUID="1000"
+      - PGID="1000"
+      - TZ="Australia/Syndey"
+    volumes:
+      - /mnt/data/jackett/config:/config
+      - /mnt/data/downloads:/downloads
+    ports:
+      - 9117:9117
+
+  radarr:
+    image: linuxserver/radarr:version-3.2.2.5080
+    container_name: radarr
+    restart: unless-stopped
+    environment:
+      - PUID="1000"
+      - PGID="1000"
+      - TZ="Australia/Syndey"
+    volumes:
+      - /mnt/data/radarr/config:/config
+      - /mnt/data/downloads:/downloads
+      - /mnt/data/movies:/movies
+    ports:
+      - 7878:7878
+
+  sonarr:
+    image: linuxserver/sonarr:version-3.0.6.1265
+    container_name: sonarr
+    restart: unless-stopped
+    environment:
+      - PUID="1000"
+      - PGID="1000"
+      - TZ="Australia/Syndey"
+    volumes:
+      - /mnt/data/sonarr/config:/config
+      - /mnt/data/downloads:/downloads
+      - /mnt/data/tv:/tv
+    ports:
+      - 8989:8989
