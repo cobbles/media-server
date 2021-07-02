@@ -19,7 +19,7 @@ services:
   deluge:
     image: linuxserver/deluge:version-2.0.3-2201906121747ubuntu18.04.1
     container_name: deluge
-    network_mode: bridge
+    network_mode: host
     restart: unless-stopped
     environment:
       - PUID="1000"
