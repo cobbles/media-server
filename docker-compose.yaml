@@ -10,9 +10,9 @@ services:
       - PGID="1000"
       - TZ="Australia/Syndey"
     volumes:
-      - /mnt/data/plex/config:/config
-      - /mnt/data/movies:/movies
-      - /mnt/data/tv:/tv
+      - /mnt/hdd1/plex/config:/config
+      - /mnt/hdd1/movies:/movies
+      - /mnt/hdd1/tv:/tv
     ports:
       - 32400:32400
 
@@ -26,8 +26,8 @@ services:
       - PGID="1000"
       - TZ="Australia/Syndey"
     volumes:
-      - /mnt/data/deluge/config:/config
-      - /mnt/data/downloads:/downloads
+      - /mnt/hdd1/deluge/config:/config
+      - /mnt/hdd1/downloads:/downloads
     # ports:
     #   - 8112:8112
 
@@ -40,8 +40,8 @@ services:
       - PGID="1000"
       - TZ="Australia/Syndey"
     volumes:
-      - /mnt/data/jackett/config:/config
-      - /mnt/data/downloads:/downloads
+      - /mnt/hdd1/jackett/config:/config
+      - /mnt/hdd1/downloads:/downloads
     ports:
       - 9117:9117
 
@@ -54,9 +54,9 @@ services:
       - PGID="1000"
       - TZ="Australia/Syndey"
     volumes:
-      - /mnt/data/radarr/config:/config
-      - /mnt/data/downloads:/downloads
-      - /mnt/data/movies:/movies
+      - /mnt/hdd1/radarr/config:/config
+      - /mnt/hdd1/downloads:/downloads
+      - /mnt/hdd1/movies:/movies
     ports:
       - 7878:7878
 
@@ -69,8 +69,8 @@ services:
       - PGID="1000"
       - TZ="Australia/Syndey"
     volumes:
-      - /mnt/data/sonarr/config:/config
-      - /mnt/data/downloads:/downloads
-      - /mnt/data/tv:/tv
+      - /mnt/hdd1/sonarr/config:/config
+      - /mnt/hdd1/downloads:/downloads
+      - /mnt/hdd1/tv:/tv
     ports:
       - 8989:8989
