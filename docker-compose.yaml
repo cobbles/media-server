@@ -13,6 +13,8 @@ services:
       - /mnt/hdd1/plex/config:/config
       - /mnt/hdd1/movies:/movies
       - /mnt/hdd1/tv:/tv
+    networks:
+      - default
     ports:
       - 32400:32400
 
@@ -28,6 +30,8 @@ services:
     volumes:
       - /mnt/hdd1/deluge/config:/config
       - /mnt/hdd1/downloads:/downloads
+    networks:
+      - default
     # ports:
     #   - 8112:8112
 
@@ -42,6 +46,8 @@ services:
     volumes:
       - /mnt/hdd1/jackett/config:/config
       - /mnt/hdd1/downloads:/downloads
+    networks:
+      - default
     ports:
       - 9117:9117
 
@@ -57,6 +63,8 @@ services:
       - /mnt/hdd1/radarr/config:/config
       - /mnt/hdd1/downloads:/downloads
       - /mnt/hdd1/movies:/movies
+    networks:
+      - default
     ports:
       - 7878:7878
 
@@ -72,5 +80,12 @@ services:
       - /mnt/hdd1/sonarr/config:/config
       - /mnt/hdd1/downloads:/downloads
       - /mnt/hdd1/tv:/tv
+    networks:
+      - default
     ports:
-      - 8989:8989
+    - 8989:8989
+
+networks:
+  default:
+    external:
+      name: my-network
